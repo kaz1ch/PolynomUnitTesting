@@ -46,5 +46,14 @@ namespace PolynomLib.Tests
 
             Assert.AreEqual(expected_y, actual_y);
         }
+
+        [TestMethod]
+
+        public void ifferential_returns_Correct_Polynom()
+        {
+            var p = new Polynom(7, 5, 3);
+
+            var diff_p = p.GetDifferential();
+        }
     }
 }

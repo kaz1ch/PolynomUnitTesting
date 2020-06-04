@@ -6,7 +6,7 @@ namespace PolynomLib
     {
         private readonly double[] _a;
 
-        public Polynom(double[] a)
+        public Polynom(params double[] a)
         {
             _a = a;
         }
@@ -25,9 +25,14 @@ namespace PolynomLib
         {
             var y = 0d;
             for (var n = 0; n < _a.Length; n++)
-                y += x * Math.Pow(x, n);
+                y += _a[n] * Math.Pow(x, n);
 
             return y;
+        }
+
+        public Polynom GetDifferential()
+        {
+            return null;
         }
     }
 }
