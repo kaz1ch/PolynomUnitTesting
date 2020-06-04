@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -36,6 +38,7 @@ namespace PolynomLib.Tests
 
         }
 
+        [TestMethod]
         public void Value_returns_NaN_for_zero_length_polynom()
         {
             var p = new Polynom(new double[0]);
@@ -49,11 +52,37 @@ namespace PolynomLib.Tests
 
         [TestMethod]
 
-        public void ifferential_returns_Correct_Polynom()
+        public void Differential_returns_Correct_Polynom()
         {
             var p = new Polynom(7, 5, 3);
+            const double expected_a0 = 5;
+            const double expected_a1 = 3 * 2;
 
             var diff_p = p.GetDifferential();
+
+            Assert.IsNotNull(diff_p);
+            Assert.AreEqual(expected_a0, diff_p[0]);
+            Assert.AreEqual(expected_a1, diff_p[1]);
+        }
+
+        [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+
+        public void Differential_throw_InvalidOperationException_for_Polynom_with_zero_length()
+        {
+            var p = new Polynom();
+
+            var q = p.GetDifferential();
+        }
+
+        [TestMethod]
+
+        public void Differential_throw_InvalidOperationException_for_Polynom_with_zero_length2()
+        {
+            var p = new Polynom();
+            const string expected_message = "Попытка дифференцирования полинома с массивом коэффициентов нулевой длины";
+
+            var exception = Assert.ThrowsException<InvalidOperationException>(() => p.GetDifferential());
+            Assert.AreEqual(expected_message, exception.Message);
         }
     }
 }
