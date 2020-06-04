@@ -30,6 +30,21 @@ namespace PolynomLib.Tests
             var actual_y = polynom.Value(x);
 
             #endregion
+
+            Assert.IsFalse(double.IsNaN(actual_y));
+            Assert.AreEqual(expected_y, actual_y);
+
+        }
+
+        public void Value_returns_NaN_for_zero_length_polynom()
+        {
+            var p = new Polynom(new double[0]);
+            var x = 0;
+            var expected_y = double.NaN;
+
+            var actual_y = p.Value(x);
+
+            Assert.AreEqual(expected_y, actual_y);
         }
     }
 }
